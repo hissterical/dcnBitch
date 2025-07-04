@@ -1,5 +1,3 @@
-Sure, here's a concise list of all DHCP lab questions with direct answers and how to find them in Wireshark:
-
 a) DHCP uses UDP
 How: Check the "User Datagram Protocol" layer → source port 68, dest port 67
 
