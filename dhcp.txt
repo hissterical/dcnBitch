@@ -1,0 +1,47 @@
+Sure, here's a concise list of all DHCP lab questions with direct answers and how to find them in Wireshark:
+
+a) DHCP uses UDP
+How: Check the "User Datagram Protocol" layer → source port 68, dest port 67
+
+b) Link-layer (Ethernet) address of your host
+How: In DHCP Discover → "Ethernet II" layer → Source = your MAC address
+
+c) Difference between Discover and Request
+How: In "Bootstrap Protocol" → DHCP Message Type option → Discover = 1, Request = 3
+
+d) Transaction ID values
+How: In each DHCP message → Bootstrap Protocol → Transaction ID field. All 4 (Discover, Offer, Request, ACK) share the same ID. Next round uses a new ID. Used to match requests with responses.
+
+e) IPs used in Discover/Offer/Request/ACK
+How: In IP layer of each packet:
+Discover: Source 0.0.0.0, Dest 255.255.255.255
+Offer: Source = server IP, Dest = 255.255.255.255
+Request: Source 0.0.0.0, Dest 255.255.255.255
+ACK: Source = server IP, Dest = client IP
+
+f) DHCP server IP address
+How: In DHCP Offer or ACK → Option 54: DHCP Server Identifier
+
+g) IP address offered to client
+How: In DHCP Offer → "Your (client) IP address" field
+
+h) Presence of relay agent
+How: In DHCP messages → giaddr (gateway IP) field
+If 0.0.0.0 → No relay agent
+
+i) Lease time and purpose
+How: In DHCP Offer or ACK → Option 51: Lease Time
+Purpose: How long client keeps the IP before renewal
+
+j) Purpose of DHCP Release and ACK
+Answer: DHCP Release tells server to give up IP. Server does not ACK the release.
+
+k) Purpose of router and subnet mask options
+Answer: Router = default gateway; Subnet Mask = client's network range
+How: In DHCP Offer → Options 1 (Subnet Mask) and 3 (Router)
+
+l) ARP messages during DHCP?
+How: Remove filters → apply "arp" filter
+Yes, ARP used to resolve MAC addresses or check IP availability
+
+Let me know if you want this as a PDF or added to a report.
